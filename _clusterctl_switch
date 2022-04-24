@@ -1,0 +1,9 @@
+#compdef clusterctl_switch
+
+_clusterctl_switch() {
+    zstyle -s ':k8sctl:binaries' path BIN_FOLDER
+    _versions=(${BIN_FOLDER}/clusterctl-*(:t:s/clusterctl-//))
+    _describe -t versions "versions" _versions
+}
+
+_clusterctl_switch

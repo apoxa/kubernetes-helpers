@@ -1,0 +1,36 @@
+#compdef kind_download
+
+_versions_cache_policy() {
+    # rebuild if cache is more than a day old
+    local -a oldp
+    oldp=( "$1"(mh+1) )
+    (( $#oldp ))
+}
+
+_kind_download() {
+    local update_policy ret=1
+    zstyle -s ":completion:${curcontext}:" cache-policy update_policy
+    if [[ -z "$update_policy" ]]; then
+        zstyle ":completion:${curcontext}:" cache-policy _versions_cache_policy
+    fi
+
+    _cached_versions="kind_versions"
+
+    if _cache_invalid $_cached_versions  || ! _retrieve_cache $_cached_versions; then
+        _versions=(${(@s:\n:)$(curl -s https://api.github.com/repos/kubernetes-sigs/kind/releases | jq '.[].tag_name' -r)})
+        if [ $? -eq 0 ]; then
+            _store_cache $_cached_versions _versions
+        else
+            # Some error occured, probably network related
+            _versions=""
+        fi
+    else
+        _retrieve_cache $_cached_versions
+    fi
+
+    _describe -t versions "kind_versions" _versions
+
+    ret=0
+}
+
+_kind_download

@@ -1,0 +1,9 @@
+#compdef kind_switch
+
+_kind_switch() {
+    zstyle -s ':k8sctl:binaries' path BIN_FOLDER
+    _versions=(${BIN_FOLDER}/kind-*(:t:s/kind-//))
+    _describe -t versions "versions" _versions
+}
+
+_kind_switch
