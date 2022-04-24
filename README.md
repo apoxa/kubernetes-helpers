@@ -22,3 +22,7 @@ I tested this only with `zinit`, but if it works with antigen, OMZ or zgen, plea
 ### Zinit
 
 Add `zinit load apoxa/k8sctl-helpers` to your zinit plugins in your `.zshrc`
+
+## Notes
+
+This is based on a [gist](https://gist.github.com/killianmuldoon/8e5d435bb0b1954bb96e967d93a3b9e8) from killianmuldoon. I made it zsh-compatible (without using `bashcompinit`) and fixed some minor bugs.
