@@ -21,7 +21,7 @@ I tested this only with `zinit`, but if it works with antigen, OMZ or zgen, plea
 
 ### Zinit
 
-Add `zinit load apoxa/k8sctl-helpers` to your zinit plugins in your `.zshrc`
+Add `zinit load apoxa/kubernetes-helpers` to your zinit plugins in your `.zshrc`
 
 ## Notes
 
