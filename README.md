@@ -1,4 +1,4 @@
-# k8sctl-helpers
+# kubernetes-helpers
 
 This is an zsh plugin to help with the usage and installation of multiple verions of common kubernetes tools, namely `clusterctl`, `kubectl` and `kind`.
 
