@@ -38,7 +38,7 @@ clusterctl_switch(){
     ln -fs "${BIN_FOLDER}/clusterctl-${VERSION}" "${BIN_FOLDER}/clusterctl"
 
     # rebuild completion for current version and source it
-    clusterctl completion zsh > ${ZSH_CACHE_DIR}/_clusterctl_completion
+    clusterctl completion zsh >! ${ZSH_CACHE_DIR}/_clusterctl_completion
     source "${ZSH_CACHE_DIR}/_clusterctl_completion"
 }
 
@@ -70,7 +70,7 @@ kubectl_switch(){
     ln -fs "${BIN_FOLDER}/kubectl-${VERSION}" "${BIN_FOLDER}/kubectl"
 
     # rebuild completion for current version and source it
-    kubectl completion zsh > ${ZSH_CACHE_DIR}/_kubectl_completion
+    kubectl completion zsh >! ${ZSH_CACHE_DIR}/_kubectl_completion
     source "${ZSH_CACHE_DIR}/_kubectl_completion"
 }
 
@@ -103,7 +103,7 @@ kind_switch(){
     ln -fs "${BIN_FOLDER}/kind-${VERSION}" "${BIN_FOLDER}/kind"
 
     # rebuild completion for current version and source it
-    kind completion zsh > ${ZSH_CACHE_DIR}/_kind_completion
+    kind completion zsh >! ${ZSH_CACHE_DIR}/_kind_completion
     source "${ZSH_CACHE_DIR}/_kind_completion"
 }
 
