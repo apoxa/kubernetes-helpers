@@ -1,0 +1,9 @@
+#compdef kubebuilder_switch
+
+_kubebuilder_switch() {
+    zstyle -s ':k8sctl:binaries' path BIN_FOLDER
+    _versions=(${BIN_FOLDER}/kubebuilder-*(:t:s/kubebuilder-//))
+    _describe -t versions "versions" _versions
+}
+
+_kubebuilder_switch

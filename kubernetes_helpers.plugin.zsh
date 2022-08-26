@@ -118,6 +118,39 @@ kind_kubeconfig() {
     kind get kubeconfig --name=${cluster} | k8s-ctx-import
 }
 
+# kubebuilder
+kubebuilder_download(){
+    VERSION=$1
+    zstyle -s ':k8sctl:binaries' path BIN_FOLDER
+    zstyle -s ':k8sctl:binaries' os BIN_OS
+    zstyle -s ':k8sctl:binaries' arch BIN_ARCH
+
+    test -z "${VERSION}" && return
+    test -d "${BIN_FOLDER}" || mkdir -p "${BIN_FOLDER}"
+
+    if [ ! -f "${BIN_FOLDER}/kubebuilder-${VERSION}" ];
+    then
+        echo "downloading kubebuilder-${VERSION}"
+        curl -L --url "https://github.com/kubernetes-sigs/kubebuilder/releases/download/${VERSION}/kubebuilder_${BIN_OS}_${BIN_ARCH}"  --output "${BIN_FOLDER}/kubebuilder-${VERSION}"
+        chmod +x "${BIN_FOLDER}/kubebuilder-${VERSION}"
+    else
+        echo "kubebuilder-${VERSION} already exists"
+    fi
+
+    kubebuilder_switch "${VERSION}"
+}
+
+kubebuilder_switch(){
+    VERSION=$1
+    zstyle -s ':k8sctl:binaries' path BIN_FOLDER
+    echo "Switching to kubebuilder-${VERSION}"
+    ln -fs "${BIN_FOLDER}/kubebuilder-${VERSION}" "${BIN_FOLDER}/kubebuilder"
+
+    # rebuild completion for current version and source it
+    kubebuilder completion zsh >! ${ZSH_CACHE_DIR}/_kubebuilder_completion
+    source "${ZSH_CACHE_DIR}/_kubebuilder_completion"
+}
+
 # Load completions on startup
 for program in clusterctl kubectl kind; do
     [[ -f "${ZSH_CACHE_DIR}/_${program}_completion" ]] && source "${ZSH_CACHE_DIR}/_${program}_completion"
