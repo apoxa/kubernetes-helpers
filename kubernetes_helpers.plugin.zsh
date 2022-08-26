@@ -152,6 +152,6 @@ kubebuilder_switch(){
 }
 
 # Load completions on startup
-for program in clusterctl kubectl kind; do
+for program in clusterctl kubectl kind kubebuilder; do
     [[ -f "${ZSH_CACHE_DIR}/_${program}_completion" ]] && source "${ZSH_CACHE_DIR}/_${program}_completion"
 done
